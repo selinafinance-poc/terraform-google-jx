@@ -22,7 +22,7 @@ locals {
 }
 
 data "google_container_engine_versions" "jx_cluster_version" {
-  count          = (var.cluster_version != "" ) ? 1 : 0
+//  count          = (var.cluster_version != "" ) ? 1 : 0
   provider       = google-beta
   location       = var.cluster_location
   version_prefix = var.cluster_version
