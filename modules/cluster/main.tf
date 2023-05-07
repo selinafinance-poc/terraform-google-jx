@@ -37,9 +37,10 @@ resource "google_container_cluster" "jx_cluster" {
   enable_kubernetes_alpha   = var.enable_kubernetes_alpha
   enable_legacy_abac        = var.enable_legacy_abac
   enable_shielded_nodes     = var.enable_shielded_nodes
-  remove_default_node_pool  = (var.cluster_version == "" ) ? false : true
-//   node_version              = (var.cluster_version != "" ) ? data.google_container_engine_versions.jx_cluster_version.latest_node_version : ""
-//   min_master_version        = (var.cluster_version != "" ) ? data.google_container_engine_versions.jx_cluster_version.latest_node_version : ""
+// If cluster version is set than configure accordingly
+  remove_default_node_pool  = (var.cluster_version == "" ) ? true : false
+  node_version              = (var.cluster_version == "" ) ? "" : data.google_container_engine_versions.jx_cluster_version.latest_node_version 
+  min_master_version        = (var.cluster_version == "" ) ? "" : data.google_container_engine_versions.jx_cluster_version.latest_node_version 
   initial_node_count        = var.initial_cluster_node_count
   logging_service           = var.logging_service
   monitoring_service        = var.monitoring_service
