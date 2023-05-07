@@ -505,3 +505,8 @@ variable "content" {
   type        = string
   default     = ""
 }
+
+variable "cluster_version" {
+  description = "Cluster version in prefix form (i.e. '1.24.') "
+  type        = string
+  default     = ""
