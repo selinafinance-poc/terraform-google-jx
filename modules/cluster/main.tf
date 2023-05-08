@@ -22,7 +22,7 @@ locals {
 }
 
 data "google_container_engine_versions" "jx_cluster_version" {
-  count          = (var.cluster_version == "" ) ? 0 : 1
+//  count          = (var.cluster_version == "" ) ? 0 : 1
   provider       = google-beta
   location       = var.cluster_location
   version_prefix = var.cluster_version
@@ -39,8 +39,8 @@ resource "google_container_cluster" "jx_cluster" {
   enable_shielded_nodes     = var.enable_shielded_nodes
 // If cluster version is set than configure accordingly
   remove_default_node_pool  = (var.cluster_version == "" ) ? true : false
-  node_version              = (var.cluster_version == "" ) ? "" : data.google_container_engine_versions.jx_cluster_version[count.index].latest_node_version 
-  min_master_version        = (var.cluster_version == "" ) ? "" : data.google_container_engine_versions.jx_cluster_version[count.index].latest_node_version 
+  node_version              = (var.cluster_version == "" ) ? "" : data.google_container_engine_versions.jx_cluster_version.latest_node_version 
+  min_master_version        = (var.cluster_version == "" ) ? "" : data.google_container_engine_versions.jx_cluster_version.latest_node_version 
   initial_node_count        = (var.cluster_version == "" ) ? var.initial_cluster_node_count : 0
   logging_service           = var.logging_service
   monitoring_service        = var.monitoring_service
